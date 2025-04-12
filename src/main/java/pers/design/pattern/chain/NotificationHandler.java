@@ -22,14 +22,15 @@ public abstract class NotificationHandler implements Handler {
     public void handle(NotificationDTO notificationDTO) {
         if (canHandle(notificationDTO)) {
             send(notificationDTO);
-        } else {
+        } //else {
             next(notificationDTO);
-        }
+        //}
     }
 
     protected void next(NotificationDTO notificationDTO) {
         if (nextHandler == null) {
             log.warn("End of chain reached, notification not handled: {}", notificationDTO);
+            return;
         }
         nextHandler.handle(notificationDTO);
     }
